@@ -140,23 +140,25 @@ class _SplashScreenState extends State<SplashScreen>
           SlideTransition(
             position: _buttonAnimation,
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 Navigator.push(
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) => AuthScreen(),
                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      var begin = Offset(1.0, 0.0); // يبدأ من الجانب الأيمن
-                      var end = Offset.zero; // ينتهي في موضعه الطبيعي
-                      var curve = Curves.easeInOut; // منحنى الحركة
+                      const begin = Offset(1.0, 0.0); // يبدأ من الجانب الأيمن
+                      const end = Offset.zero; // ينتهي في موضعه الطبيعي
+                      const curve = Curves.easeInOut; // منحنى الحركة
 
                       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                      var offsetAnimation = animation.drive(tween);
 
                       return SlideTransition(
-                        position: animation.drive(tween),
+                        position: offsetAnimation,
                         child: child,
                       );
                     },
+                    transitionDuration: Duration(milliseconds: 600), // تعيين مدة الانتقال
                   ),
                 );
               },
@@ -192,7 +194,7 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
