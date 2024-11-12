@@ -5,7 +5,7 @@ import 'package:patient_app/widgets/questions_section.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-static const routeName = 'Main Screen';
+static const routeName = 'Home Screen';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
