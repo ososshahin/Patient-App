@@ -29,47 +29,45 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    // Animation for sign switcher
+    // Initialize animations
+    _initializeAnimations();
+
+    // Start animations with delays for sequential effect
+    _startAnimations();
+  }
+
+  void _initializeAnimations() {
     _switcherController = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
-    _switcherAnimation =
-        Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0)).animate(
-          CurvedAnimation(parent: _switcherController, curve: Curves.easeInOut),
-        );
+    _switcherAnimation = Tween<Offset>(begin: Offset(-1, 0), end: Offset(0, 0)).animate(
+      CurvedAnimation(parent: _switcherController, curve: Curves.easeInOut),
+    );
 
-    // Animation for quote text
     _quoteController = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
-    _quoteAnimation =
-        Tween<Offset>(begin: Offset(0, -1), end: Offset(0, 0)).animate(
-          CurvedAnimation(parent: _quoteController, curve: Curves.easeInOut),
-        );
+    _quoteAnimation = Tween<Offset>(begin: Offset(0, -1), end: Offset(0, 0)).animate(
+      CurvedAnimation(parent: _quoteController, curve: Curves.easeInOut),
+    );
 
-    // Animation for form fields
     _formController = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
-    _formAnimation =
-        Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0)).animate(
-          CurvedAnimation(parent: _formController, curve: Curves.easeInOut),
-        );
+    _formAnimation = Tween<Offset>(begin: Offset(1, 0), end: Offset(0, 0)).animate(
+      CurvedAnimation(parent: _formController, curve: Curves.easeInOut),
+    );
 
-    // Animation for button
     _buttonController = AnimationController(
       duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
-    _buttonAnimation =
-        Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0)).animate(
-          CurvedAnimation(parent: _buttonController, curve: Curves.easeInOut),
-        );
-
-    _startAnimations();
+    _buttonAnimation = Tween<Offset>(begin: Offset(0, 1), end: Offset(0, 0)).animate(
+      CurvedAnimation(parent: _buttonController, curve: Curves.easeInOut),
+    );
   }
 
   void _startAnimations() async {
@@ -149,20 +147,17 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
                 top: 344,
                 child: SlideTransition(
                   position: _formAnimation,
-                  child: isSignIn ? SignInForm() : SignUpForm(),
-                ),
-              ),
-              // Animated Auth Button
-              Positioned(
-                left: 108,
-                top: 753,
-                child: SlideTransition(
-                  position: _buttonAnimation,
-                  child: AuthButton(
-                    label: isSignIn ? 'Login' : 'SignUp',
-                    onPressed: () {
-                      // Handle login/signup logic here
+                  child: isSignIn
+                      ? SignInForm(
+                    onLoginSuccess: (token) {
+                      setState(() {
+                        // Do nothing with token as no JWT required
+                      });
                     },
+                    buttonAnimation: _buttonAnimation,
+                  )
+                      : SignUpForm(
+                    buttonAnimation: _buttonAnimation,
                   ),
                 ),
               ),

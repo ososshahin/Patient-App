@@ -3,6 +3,7 @@ import 'package:patient_app/auth/auth_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+  static const routeName = 'Main Screen';
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
