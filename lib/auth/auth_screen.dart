@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
 import 'package:patient_app/auth/signin_form.dart';
 import 'package:patient_app/auth/signup_form.dart';
 import 'package:patient_app/widgets/sign_switcher.dart';
@@ -95,18 +96,18 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
       backgroundColor: Colors.white,
       body: Center(
         child: Container(
-          width: 393,
-          height: 852,
+          width: 393.w, // Responsive width
+          height: 852.h, // Responsive height
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(30.r), // Responsive border radius
           ),
           child: Stack(
             children: [
               // Animated Sign Switcher
               Positioned(
-                left: 41,
-                top: 33,
+                left: 41.w, // Responsive positioning
+                top: 33.h,  // Responsive positioning
                 child: SlideTransition(
                   position: _switcherAnimation,
                   child: SignSwitcher(
@@ -121,19 +122,19 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               ),
               // Animated Quote Text
               Positioned(
-                left: 44,
-                top: 222,
+                left: 44.w, // Responsive positioning
+                top: 222.h, // Responsive positioning
                 child: SlideTransition(
                   position: _quoteAnimation,
                   child: Container(
-                    width: 309,
+                    width: 309.w, // Responsive width
                     child: Text(
                       'You are few steps away from something great',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w400,
-                        fontSize: 28,
+                        fontSize: 28.sp, // Responsive font size
                         color: Colors.black,
                         letterSpacing: -0.05,
                       ),
@@ -143,8 +144,8 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               ),
               // Animated Form fields
               Positioned(
-                left: 41,
-                top: 344,
+                left: 41.w, // Responsive positioning
+                top: 344.h, // Responsive positioning
                 child: SlideTransition(
                   position: _formAnimation,
                   child: isSignIn

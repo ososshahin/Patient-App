@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
 
 class AuthButton extends StatelessWidget {
   final String label;
@@ -16,11 +16,11 @@ class AuthButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        width: 181,
-        height: 56,
+        width: 181.w, // Responsive width using ScreenUtil
+        height: 56.h, // Responsive height using ScreenUtil
         decoration: BoxDecoration(
-          color: Color(0xFF007AFF),
-          borderRadius: BorderRadius.circular(30),
+          color: const Color(0xFF007AFF),
+          borderRadius: BorderRadius.circular(30.r), // Responsive border radius
         ),
         child: Center(
           child: Text(
@@ -29,7 +29,7 @@ class AuthButton extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w500,
-              fontSize: 24,
+              fontSize: 24.sp, // Responsive font size using ScreenUtil
               color: Colors.white,
               letterSpacing: -0.05,
             ),

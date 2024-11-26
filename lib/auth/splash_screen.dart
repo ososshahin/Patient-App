@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:patient_app/auth/auth_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -9,8 +10,7 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
   late AnimationController _imageController;
   late Animation<Offset> _imageAnimation;
 
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    // تحريك الصورة - تنزل من الأعلى
+    // Initialize animations for the splash screen
     _imageController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
@@ -37,7 +37,6 @@ class _SplashScreenState extends State<SplashScreen>
           CurvedAnimation(parent: _imageController, curve: Curves.easeInOut),
         );
 
-    // تحريك النص الرئيسي - يأتي من اليسار
     _textController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
@@ -47,7 +46,6 @@ class _SplashScreenState extends State<SplashScreen>
           CurvedAnimation(parent: _textController, curve: Curves.easeInOut),
         );
 
-    // تحريك النص الفرعي - يأتي من اليمين
     _subTextController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
@@ -57,7 +55,6 @@ class _SplashScreenState extends State<SplashScreen>
           CurvedAnimation(parent: _subTextController, curve: Curves.easeInOut),
         );
 
-    // تحريك الزر - يصعد من الأسفل
     _buttonController = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
@@ -67,7 +64,6 @@ class _SplashScreenState extends State<SplashScreen>
           CurvedAnimation(parent: _buttonController, curve: Curves.easeInOut),
         );
 
-    // بدء التحريك بتأخيرات لخلق تأثير متتابع
     _startAnimations();
   }
 
@@ -94,50 +90,55 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // شاشة بيضاء عند البدء
+      backgroundColor: Colors.white, // White background for the splash screen
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // Animated Image
           SlideTransition(
             position: _imageAnimation,
-            child: const Center(
-              child: Image(
-                image: AssetImage(
-                  "assets/images/doctor_splash.png",
-                ),
+            child: Center(
+              child: Image.asset(
+                "assets/images/doctor_splash.png",
+                width: 200.w, // Responsive width for the image
+                height: 200.h, // Responsive height for the image
               ),
             ),
           ),
-          const SizedBox(
-            height: 40,
-          ),
+          SizedBox(height: 40.h), // Responsive spacing
+
+          // Animated Main Text
           SlideTransition(
             position: _textAnimation,
-            child: const Text(
+            child: Text(
               "Your Doctor is One Tap away",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Color(0xff000000),
-                  fontSize: 34,
-                  fontWeight: FontWeight.w400,
-                  fontFamily: "Inter"),
+                color: Color(0xff000000),
+                fontSize: 34.sp, // Responsive font size
+                fontWeight: FontWeight.w400,
+                fontFamily: "Inter",
+              ),
             ),
           ),
+
+          // Animated Sub Text
           SlideTransition(
             position: _subTextAnimation,
-            child: const Text(
+            child: Text(
               "this is a subtext that can be edited",
               textAlign: TextAlign.center,
               style: TextStyle(
-                  color: Color(0xff949191),
-                  fontSize: 21,
-                  fontWeight: FontWeight.w300,
-                  fontFamily: "Inter"),
+                color: Color(0xff949191),
+                fontSize: 21.sp, // Responsive font size
+                fontWeight: FontWeight.w300,
+                fontFamily: "Inter",
+              ),
             ),
           ),
-          const SizedBox(
-            height: 30,
-          ),
+          SizedBox(height: 30.h), // Responsive spacing
+
+          // Animated Button
           SlideTransition(
             position: _buttonAnimation,
             child: GestureDetector(
@@ -147,9 +148,9 @@ class _SplashScreenState extends State<SplashScreen>
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) => AuthScreen(),
                     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                      const begin = Offset(1.0, 0.0); // يبدأ من الجانب الأيمن
-                      const end = Offset.zero; // ينتهي في موضعه الطبيعي
-                      const curve = Curves.easeInOut; // منحنى الحركة
+                      const begin = Offset(1.0, 0.0); // Start from the right
+                      const end = Offset.zero; // End at its natural position
+                      const curve = Curves.easeInOut;
 
                       var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
                       var offsetAnimation = animation.drive(tween);
@@ -159,36 +160,36 @@ class _SplashScreenState extends State<SplashScreen>
                         child: child,
                       );
                     },
-                    transitionDuration: Duration(milliseconds: 600), // تعيين مدة الانتقال
+                    transitionDuration: Duration(milliseconds: 600),
                   ),
                 );
               },
               child: Container(
-                width: 331,
-                height: 56,
-                decoration: const BoxDecoration(
+                width: 331.w, // Responsive width for the button
+                height: 56.h, // Responsive height for the button
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                   color: Color(0xff007AFF),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       "Let’s get started",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          color: Color(0xffffffff),
-                          fontSize: 28,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: "Inter"),
+                        color: Color(0xffffffff),
+                        fontSize: 28.sp, // Responsive font size
+                        fontWeight: FontWeight.w600,
+                        fontFamily: "Inter",
+                      ),
                     ),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10.w), // Responsive spacing
                     Padding(
                       padding: const EdgeInsets.only(right: 12),
-                      child: Image(
-                        image: AssetImage(
-                          "assets/images/double_right.png",
-                        ),
+                      child: Image.asset(
+                        "assets/images/double_right.png",
+                        width: 24.w, // Responsive icon size
                       ),
                     ),
                   ],

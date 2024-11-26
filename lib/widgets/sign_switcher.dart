@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
 
 class SignSwitcher extends StatelessWidget {
   final bool isSignIn;
@@ -13,11 +14,11 @@ class SignSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 315,
-      height: 51,
+      width: 315.w, // Responsive width
+      height: 51.h, // Responsive height
       decoration: BoxDecoration(
         color: Color.fromRGBO(238, 238, 238, 0.4),
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(30.r), // Responsive border radius
       ),
       child: Stack(
         children: [
@@ -25,14 +26,14 @@ class SignSwitcher extends StatelessWidget {
           AnimatedPositioned(
             duration: Duration(milliseconds: 300),
             curve: Curves.easeInOut,
-            left: isSignIn ? 0 : 157.5, // Move to the right half if SignUp is selected
+            left: isSignIn ? 0 : 157.5.w, // Adjusted with responsive width
             child: AnimatedContainer(
               duration: Duration(milliseconds: 300),
-              width: 157.5,
-              height: 51,
+              width: 157.5.w, // Responsive width
+              height: 51.h, // Responsive height
               decoration: BoxDecoration(
                 color: Color(0xFF007AFF),
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(30.r), // Responsive border radius
               ),
             ),
           ),
@@ -50,7 +51,7 @@ class SignSwitcher extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w500,
-                          fontSize: 28,
+                          fontSize: 28.sp, // Responsive font size
                           color: isSignIn
                               ? Colors.white
                               : Color.fromRGBO(181, 181, 181, 0.55),
@@ -70,7 +71,7 @@ class SignSwitcher extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w400,
-                          fontSize: 28,
+                          fontSize: 28.sp, // Responsive font size
                           color: isSignIn
                               ? Color.fromRGBO(181, 181, 181, 0.55)
                               : Colors.white,
